@@ -19,7 +19,6 @@ This project involves a comprehensive analysis of Netflix's movies and TV shows 
 ## Schema
 
 '''Sql
-
 DROP TABLE IF EXISTS netflix;
 CREATE TABLE netflix
 (
@@ -42,7 +41,6 @@ CREATE TABLE netflix
 ### 1. Count the Number of Movies vs TV Shows
 
 '''sql
-
 SELECT 
     type,
     COUNT(*)
@@ -55,7 +53,6 @@ GROUP BY 1;
 ### 2. Find the Most Common Rating for Movies and TV Shows
 
 '''sql
-
 WITH RatingCounts AS (
     SELECT 
         type,
@@ -84,16 +81,16 @@ WHERE rank = 1;
 ### 3. List All Movies Released in a Specific Year (e.g., 2020)
 
 '''sql
-
 SELECT * 
 FROM netflix
 WHERE release_year = 2020;
-Objective: Retrieve all movies released in a specific year.
+'''
 
-#### 4. Find the Top 5 Countries with the Most Content on Netflix
+**Objective:** Retrieve all movies released in a specific year.
+
+### 4. Find the Top 5 Countries with the Most Content on Netflix
 
 '''sql
-
 SELECT * 
 FROM
 (
@@ -113,7 +110,6 @@ LIMIT 5;
 ### 5. Identify the Longest Movie
 
 '''sql
-
 SELECT 
     *
 FROM netflix
@@ -127,7 +123,6 @@ ORDER BY SPLIT_PART(duration, ' ', 1)::INT DESC;
 ### 6. Find All Movies/TV Shows by Director 'Rajiv Chilaka'
 
 '''sql
-
 SELECT *
 FROM (
     SELECT 
@@ -143,7 +138,6 @@ WHERE director_name = 'Rajiv Chilaka';
 ### 7. List All TV Shows with More Than 5 Seasons
 
 '''sql
-
 SELECT *
 FROM netflix
 WHERE type = 'TV Show'
@@ -155,7 +149,6 @@ WHERE type = 'TV Show'
 ### 8. Count the Number of Content Items in Each Genre
 
 '''sql
-
 SELECT 
     UNNEST(STRING_TO_ARRAY(listed_in, ',')) AS genre,
     COUNT(*) AS total_content
@@ -169,7 +162,6 @@ GROUP BY 1;
 return top 5 year with highest avg content release!
 
 '''sql
-
 SELECT 
     country,
     release_year,
@@ -190,7 +182,6 @@ LIMIT 5;
 ### 9. List All Movies that are Documentaries
 
 '''sql
-
 SELECT * 
 FROM netflix
 WHERE listed_in LIKE '%Documentaries';
@@ -201,7 +192,6 @@ WHERE listed_in LIKE '%Documentaries';
 ### 10. Find All Content Without a Director
 
 '''sql
-
 SELECT * 
 FROM netflix
 WHERE director IS NULL;
@@ -213,7 +203,6 @@ WHERE director IS NULL;
 ### 11. Find the Top 10 Actors Who Have Appeared in the Highest Number of Movies Produced in India
 
 '''sql
-
 SELECT 
     UNNEST(STRING_TO_ARRAY(casts, ',')) AS actor,
     COUNT(*)
@@ -229,7 +218,6 @@ LIMIT 10;
 ### 12. Categorize Content Based on the Presence of 'Kill' and 'Violence' Keywords
 
 '''sql
-
 SELECT 
     category,
     COUNT(*) AS content_count
